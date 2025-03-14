@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 定义应用的主题，继承自 Theme.AppCompat -->
+    <style name="Theme.Crypto_demo" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 设置状态栏透明 -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!-- 可选：设置导航栏透明 -->
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+</resources>
