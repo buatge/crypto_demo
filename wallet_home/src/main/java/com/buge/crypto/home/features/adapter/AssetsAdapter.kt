@@ -11,6 +11,7 @@ import com.buge.base_library.imageloader.loadImage
 import com.buge.crypto.home.R
 import com.buge.crypto.home.features.model.AssetBalanceData
 import com.buge.crypto.home.utils.CalculateUtil
+import com.buge.crypto.home.utils.NumberFormatUtil
 
 class AssetsAdapter :
     RecyclerView.Adapter<AssetsAdapter.AssetViewHolder>() {
@@ -30,12 +31,13 @@ class AssetsAdapter :
         return AssetViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: AssetViewHolder, position: Int) {
         val asset = assets?.get(position)
         asset?.let {
             holder.tvName.text = it.name
-            holder.tvAmount.text = "${it.amount} ${it.symbol}"
-            holder.tvValue.text = "${CalculateUtil.DEFAULT_CURRENCY_SYMBOL} ${it.value}"
+            holder.tvAmount.text = "${NumberFormatUtil.format(it.amount?: "")} ${it.symbol}"
+            holder.tvValue.text = "${CalculateUtil.DEFAULT_CURRENCY_SYMBOL} ${NumberFormatUtil.format(it.value)}"
             holder.ivIcon.loadImage(it.icon?: "")
         }
 

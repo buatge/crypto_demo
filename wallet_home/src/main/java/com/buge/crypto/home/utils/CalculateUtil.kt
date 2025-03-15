@@ -39,11 +39,11 @@ object CalculateUtil {
                 balanceValue?.let {
                     totalBalance = totalBalance.plus(it)
                 }
-                assetBalance.value = balanceValue?.toString()?: ""
+                assetBalance.value = balanceValue?.toPlainString()?: ""
                 balancesResult.add(assetBalance)
             }
         }
-        return Pair(totalBalance.toString(), balancesResult)
+        return Pair(totalBalance.toPlainString(), balancesResult)
     }
 
     private fun calculateBalanceValue(

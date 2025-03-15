@@ -10,6 +10,7 @@ import com.buge.crypto.home.datasource.model.SymbolInfo
 import com.buge.crypto.home.datasource.model.TierInfo
 import com.buge.crypto.home.features.model.AssetBalanceData
 import com.buge.crypto.home.utils.CalculateUtil
+import com.buge.crypto.home.utils.NumberFormatUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
@@ -73,10 +74,10 @@ class WalletBalanceViewModel : ViewModel() {
                 }
                 _balanceList.postValue(balancesResponse.wallet)
             }.flowOn(Dispatchers.IO).collect {
-                    /**
-                     * Loading end
-                     * */
-                }
+                /**
+                 * Loading end
+                 * */
+            }
         }
 
     }
@@ -92,20 +93,11 @@ class WalletBalanceViewModel : ViewModel() {
                 )
             }
             combinedList?.let {
-                _totalBalance.value = "${CalculateUtil.DEFAULT_CURRENCY_SYMBOL} ${it.first} ${CalculateUtil.DEFAULT_CURRENCY}"
+                _totalBalance.value =
+                    "${CalculateUtil.DEFAULT_CURRENCY_SYMBOL} ${NumberFormatUtil.format(it.first)} ${CalculateUtil.DEFAULT_CURRENCY}"
                 _combineBalances.value = it.second
             }
         }
     }
-
-    private fun getTotalBalance() {
-        viewModelScope.launch {
-            val totalBalance = withContext(Dispatchers.Default) {
-                val balances = _combineBalances.value ?: return@withContext ""
-
-            }
-        }
-    }
-
 
 }
