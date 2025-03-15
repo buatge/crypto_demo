@@ -14,6 +14,6 @@ object ImageLoaderManager {
     }
 }
 
-fun ImageView.load(url: String) {
+fun ImageView.loadImage(url: String) {
     ImageLoaderManager.load(this, url)
 }

@@ -4,21 +4,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
     app:cardElevation="4dp"
     app:cardCornerRadius="8dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:orientation="vertical">
+        >
+
+        <ImageView
+            android:id="@+id/iv_symbol_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Basic Attention Token"
+            tools:text="Basic Attention Token"
+            app:layout_constraintStart_toEndOf="@id/iv_symbol_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="10dp"
+            android:textColor="@android:color/primary_text_light"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -26,15 +41,22 @@
             android:id="@+id/tv_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="67.87517775 BAT"
+            tools:text="67.87517775 BAT"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_value"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="@android:color/primary_text_light"/>
 
         <TextView
             android:id="@+id/tv_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$18.20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_amount"
+            tools:text="$18.20"
+            android:textColor="@android:color/darker_gray"
             android:textSize="14sp"/>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

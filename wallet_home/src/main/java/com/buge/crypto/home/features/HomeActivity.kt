@@ -1,6 +1,7 @@
 package com.buge.crypto.home.features
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel: WalletBalanceViewModel by viewModels()
 
+    private lateinit var tvTotalBalance: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var assetsAdapter: AssetsAdapter
 
@@ -26,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initView() {
         recyclerView = findViewById(R.id.recycler_assets)
+        tvTotalBalance = findViewById(R.id.tv_total_balance)
     }
 
     private fun initData() {
@@ -38,6 +41,9 @@ class HomeActivity : AppCompatActivity() {
     private fun observeLiveData() {
         viewModel.combineBalances.observe(this) {
             assetsAdapter.updateAssets(it)
+        }
+        viewModel.totalBalance.observe(this) {
+            tvTotalBalance.text = it
         }
     }
 }

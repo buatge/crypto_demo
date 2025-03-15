@@ -8,14 +8,17 @@ import java.math.BigDecimal
 
 object CalculateUtil {
 
-    private const val DEFAULT_CURRENCY = "USD"
+    const val DEFAULT_CURRENCY = "USD"
+    const val DEFAULT_CURRENCY_SYMBOL = "$"
 
     fun calculateBalanceList(
         symbolMap: Map<String, SymbolInfo>,
         rateMap: Map<String, TierInfo>,
         balances: List<BalanceInfo>
-    ): List<AssetBalanceData> {
-        val result = mutableListOf<AssetBalanceData>()
+    ): Pair<String, List<AssetBalanceData>> {
+        val balancesResult = mutableListOf<AssetBalanceData>()
+        var totalBalance = BigDecimal(0)
+
         balances.forEach { balanceInfo ->
             val symbolInfo = symbolMap[balanceInfo.currency]
             val rateInfo = rateMap["${balanceInfo.currency}$DEFAULT_CURRENCY"]
@@ -29,14 +32,18 @@ object CalculateUtil {
                 assetBalance.name = symbolInfo.name
                 assetBalance.icon = symbolInfo.colorfulImageUrl
                 assetBalance.amount = balanceInfo.amount
-                assetBalance.value = calculateBalanceValue(
+                var balanceValue = calculateBalanceValue(
                     balanceInfo.amount ?: "",
                     rateTarget?.rate ?: ""
-                )?.toPlainString() ?: ""
-                result.add(assetBalance)
+                )
+                balanceValue?.let {
+                    totalBalance = totalBalance.plus(it)
+                }
+                assetBalance.value = balanceValue?.toString()?: ""
+                balancesResult.add(assetBalance)
             }
         }
-        return result
+        return Pair(totalBalance.toString(), balancesResult)
     }
 
     private fun calculateBalanceValue(

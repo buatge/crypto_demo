@@ -21,6 +21,9 @@ class WalletBalanceViewModel : ViewModel() {
     private val _combineBalances = MediatorLiveData<List<AssetBalanceData>>()
     val combineBalances = _combineBalances
 
+    private val _totalBalance = MediatorLiveData<String>()
+    val totalBalance = _totalBalance
+
     /**
      * 考虑到这三个数据，未来不一定是从文件、接口中获取，
      * 还有可能是ws数据下发的情况，所以需要对这些数据进行存储，
@@ -34,6 +37,8 @@ class WalletBalanceViewModel : ViewModel() {
         _combineBalances.addSource(_symbolMap) { combineBalanceData() }
         _combineBalances.addSource(_rateMap) { combineBalanceData() }
         _combineBalances.addSource(_balanceList) { combineBalanceData() }
+
+        _totalBalance.addSource(_combineBalances) {}
     }
 
     /**
@@ -87,7 +92,17 @@ class WalletBalanceViewModel : ViewModel() {
                 )
             }
             combinedList?.let {
-                _combineBalances.value = it
+                _totalBalance.value = "${CalculateUtil.DEFAULT_CURRENCY_SYMBOL} ${it.first} ${CalculateUtil.DEFAULT_CURRENCY}"
+                _combineBalances.value = it.second
+            }
+        }
+    }
+
+    private fun getTotalBalance() {
+        viewModelScope.launch {
+            val totalBalance = withContext(Dispatchers.Default) {
+                val balances = _combineBalances.value ?: return@withContext ""
+
             }
         }
     }

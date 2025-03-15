@@ -32,7 +32,6 @@
                 android:gravity="center"
                 android:padding="16dp"
                 android:background="#222E50"
-                android:text="$ 36.68 USD"
                 app:layout_collapseMode="parallax"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
