@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.buge.crypto.home.R
 import com.buge.crypto.home.features.adapter.AssetsAdapter
-import com.buge.crypto.home.features.model.AssetBalanceData
 import com.buge.crypto.home.features.viewmodel.WalletBalanceViewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -20,20 +19,25 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet_home)
+        initView()
+        initData()
+        observeLiveData()
+    }
 
+    private fun initView() {
         recyclerView = findViewById(R.id.recycler_assets)
+    }
 
-        val assets = listOf(
-            AssetBalanceData(),
-            AssetBalanceData(),
-            AssetBalanceData(),
-            AssetBalanceData(),
-            AssetBalanceData(),
-            AssetBalanceData()
-        )
-
-        assetsAdapter = AssetsAdapter(assets)
+    private fun initData() {
+        viewModel.initData()
+        assetsAdapter = AssetsAdapter()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = assetsAdapter
+    }
+
+    private fun observeLiveData() {
+        viewModel.combineBalances.observe(this) {
+            assetsAdapter.updateAssets(it)
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.buge.crypto.home.features.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.buge.crypto.home.R
 import com.buge.crypto.home.features.model.AssetBalanceData
 
-class AssetsAdapter(private val assets: List<AssetBalanceData>) :
+class AssetsAdapter :
     RecyclerView.Adapter<AssetsAdapter.AssetViewHolder>() {
+
+    private var assets: List<AssetBalanceData>? = null
 
     class AssetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
@@ -24,11 +27,20 @@ class AssetsAdapter(private val assets: List<AssetBalanceData>) :
     }
 
     override fun onBindViewHolder(holder: AssetViewHolder, position: Int) {
-        val asset = assets[position]
-        holder.tvName.text = asset.name
-        holder.tvAmount.text = asset.amount
-        holder.tvValue.text = asset.value
+        val asset = assets?.get(position)
+        asset?.let {
+            holder.tvName.text = it.name
+            holder.tvAmount.text = it.amount
+            holder.tvValue.text = it.value
+        }
+
     }
 
-    override fun getItemCount(): Int = assets.size
+    override fun getItemCount(): Int = assets?.size ?: 0
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateAssets(data: List<AssetBalanceData>? = null) {
+        assets = data
+        notifyDataSetChanged()
+    }
 }
