@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.buge.base_library"
-    compileSdk = 33
+    compileSdk = 34
 
     buildTypes {
         release {

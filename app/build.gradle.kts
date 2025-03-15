@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.buge.crypto_demo"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.buge.crypto_demo"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

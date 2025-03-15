@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.buge.crypto.home"
-    compileSdk = 33
+    compileSdk = 34
 
     buildTypes {
         release {
@@ -28,4 +28,9 @@ android {
 dependencies {
     implementation(project(":base_library"))
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.cardview)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.coordinatorlayout)
+    implementation(libs.material)
+    implementation(libs.gson)
 }
